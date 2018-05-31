@@ -22,7 +22,7 @@ ___
 + To Execute:
 	+ `java CarTracker`
 + Screenshot Provided below
-	+ + ![Compile-Execution Screenshot](https://github.com/neilpatel/CarTracker/blob/master/screenshots/Compile-Execution.PNG)
+	+ ![Compile-Execution Screenshot](https://github.com/neilpatel/CarTracker/blob/master/screenshots/Compile-Execution.PNG)
 ___
 ## Car Tracker Features
 + Add A Car
@@ -53,6 +53,6 @@ ___
 	+ This allows the user to see all the current cars listed in the database
 
 ___
-< p align = "center"> <b> Hope you like the User Interface!!  </b> </p>
+<p align = "center"> <b> Hope you like the User Interface!!  </b> </p>
 		
 	
