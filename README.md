@@ -12,6 +12,8 @@ ___
 	+ PriorityQueue
 	+ StdIn
 	+ StdOut
+	+ Documentation.txt
+		+ A few paragraphs explaining my approach to each method implemented
 ___
 ## Usage
 + Clone the repository
