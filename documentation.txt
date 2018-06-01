@@ -1,0 +1,212 @@
+Neil Patel
+COE 1501; Algorithms
+Spring 2018 Semester
+GitHub: neilpatel
+
+Documentation File
+
+
+	I. Summary:
+		In order to properly implement this project, a Priority Queue data structure
+		will be necessary. To start somewhere effectively, I began to dissect the 
+		textbook's code on Minimum and Maximum Priority Queues. I decided that the Maximum
+		Priority Queue could be used but it would be ineffective for the task at hand. This 
+		is why I decided to use the MinPQ.java file provided by the textbook. These queues 
+		will be stored in a MinHeap for both the price and the milage. An effective data 
+		structure will need to be used to update the car's information. To acheive such indirection,
+		I used Java's ArrayList and a Stack based around a heap to effectively perform the necessary operations.
+		
+	II. Code
+		A. CarTracker.java
+			This is the main class of the program. This is were all the user input takes place
+			and the main menu is displayed. The user is allowed to perform all the car operations
+			here and make any selections they wish. The CarTracker class serves as the user interface 
+			portion of the project.
+			
+			Methods:
+				1. displayMainMenu()
+					> This is the basic display for the user. Provides the user a list of options
+					to select from. 
+					
+				2. addACar()
+					> The main goal for this method is to provide the user the option to enter in all the car details. 
+					I created a car object under the CarInfo class. This method has a great detail of abstraction to it. 
+					After each attribute is added, I call the set method on that respective attribute. At the end, I add 
+					the car information to the priority queue represented by the variable db, short for database.
+					
+				3. updateCar()
+					> This method is designed to provide the user the opportunity to update any attribute of an 
+					existing car in the queue. At first, the user is prompted to enter the VIN number of the 
+					car they wish to update. Then, I provide the option to select the attribute they want to update. 
+					At this point, they are prompted to enter a new value for whichever attribute they selected prior. 
+					Depending on the selection, various attributes are passed in to the updateCar method in the priority
+					queue class. This method in the PriorityQueue.java class checks for a valid VIN number. Then, I use 
+					new value entered and set it to the particular attribute they wished to update. 
+					
+				4. remove()
+					> This method is designed to take a user input of the car's VIN number. Then, based on the VIN number, 
+					the priority queue class's remove method is invoked, and the car is removed.
+					
+				5. lowestPricedCar()
+					> This method is designed to call the lowestPrice() method in the PriorityQueue.java class and return
+					the minimum priced car that is the queue. 
+					
+				6. lowestMilageCar()
+					> This method is designed to call the lowestMilage() method in the PriorityQueue.java class and return
+					the car with the least number of miles.
+					
+				7. lowestPriceByMakeAndModel()
+					> This method is designed to call the lowestPriceMakeAndModel() method in the PriorityQueue.java class
+					and return the car that is the least expesive with the user's input of a particular make and model.
+					I also check if the car does not exist in CarTracker.java file and display an error message to the user. 
+					
+				8. lowestMilageByMakeAndModel()
+					> This method is designed to call the lowestMilageMakeAndModel() method in the PriorityQueue.java class
+					and return the car that has the least number of miles in the queue based on the user's  input of a particular
+					make and model. Like the lowestPriceByMakeAndModel() method, I also check if the car does not exist with the 
+					given attributes provided by the user. 
+					
+				9. ensureuserIntegerInput()
+					> This method was created to simply error check all user input. This method has a while loop to contiually check 
+					if the user has entered an integer. As opposed to reusing this code for each time an integer input is required,
+					I decided to implement this method. 
+				10. loadCars()
+					> This method is designed to use a Buffered File Reader to read in the necessary contents of the 'cars.txt' file.
+					First, I read in the current line of the file. Then, using a loop to iterate through all the file contents by lines.
+					I used the split function to delimit the various attribute fields in the file for representing the car. I decided it
+					was best to put this in a try-catch block because various IOExceptions could be raised otherwise. 
+					
+		B. CarInfo.java
+			This class represents a Car object and has the necessary enumerables, setters, and getters required for the project.
+			
+			Methods:	
+				Getters:
+					1. getCarVin()
+						> Returns the Car Vin Number
+					2. getCarMake()
+						> Returns the Car Make
+					3. getCarModel()
+						> Returns the Car Model
+					4. getCarColor()
+						> Returns the Car Color
+					5. getCarPrice()
+						> Returns the Car Price
+					6. getCarMilage()
+						> Returns the Car Milage
+				Setters:
+					1. setCarVin(String vin)
+						> Sets the Car VIn Number
+					2. setCarMake(String make)
+						> Sets the Car Make
+					3. setCarModel(String model)
+						> Sets the Car Model
+					4. setCarColorString color)
+						> Sets the Car Color
+					5. setCarPrice(int price)
+						> Sets the Car Price
+					6. setCarMilage(int milage)
+						> Sets the Car Milage
+				Others:
+					1. SOP(String s)
+						> Simplied Method for System.out.println(s)
+					2. CarSOP()
+						> Prints the car details when invoked
+		
+		C. CarSort.java
+			This clasa has two main fields:
+				The first which is sortCarValue. This is the value the instance will be sorted by.
+				The second which is the index. This is an integer that holds the index of the particular 
+				car in the list of cars. 
+			
+			Methods:
+				1. compareTo(CarSort car)
+					> This is a the compareTo method in the comparable interface overridden to satisfy 
+					  the implemented PQ and the project requirements.
+											  
+		D. PriorityQueue.java
+			This class holds two priority queues, one for the lowest priced car and one for the lowest milaged car.
+			
+			Methods:
+				1. addACar_helper(): Based on the project requirements, this method adds a car to the PQ based on the VIN number. (and other fields)
+							  I put this method in mostly a try catch block because I was getting some strange run-time errors when 
+							  I tried the approach outside of a try catch block. Based on the two minimum priority queues I have set up, the 
+							  user will insert a valid VIN number along with the other enumerables and the method will add it to the PQ. 
+							  Since I am adding values to two priority queues, the runtimes will be increased by that factor. This will be the 
+							  same for the removal because I will need to search the list of cars and the two PQs. 
+					Runtime: O((2)(n*logn)) (the insert runtime for heaps times two for the two minPQs)
+					
+				2. remove(): This method takes the VIN number as an input from the user and looks through the list of cars in the PQ to see
+							 if it can be located. There are various conditional statements put in check for any obscure cases on the user's operation.
+							 I have created flags to test if the car vin number can be located. This method consists of 4 loops in total which could
+							 be simplified to 3 because at any given point only 3 will be running for the operations being done. This is the same as 
+							 the insert method above. I took this approach because I would know the car's index through the CarSort class and that 
+							 would allow me to delete the Car instance in the cars list by using the remove(index) method established by the Java ArrayList Libraries. 
+					Runtime: O((2)(n*log(n))) (the remove runtime for heaps times two for the two minPQs)
+					
+				3. lowestPrice(): This method searches through the list of cars and returns the minimum value in the price PQ. 
+					Runtime: O(1) > This operation is quite simple because I call the price minPQ and return the parent of it. This value will definitely be
+									the minimum value in the PQ at any given point.
+									
+				4. lowestMilage(): This method searches through the list of cars and returns the minimum value in the milage PQ.
+					Runtime: O(1) > This operation is also quite simple because I call the milage PQ and return the parent node. This is done the exact same
+									way as the lowestPrice() method. 
+									
+				5. lowestPriceMakeAndModel(): This method takes the input of both the car's make and model. After given these values, I search through the 
+											   list of cars to search for a car which those two fields. This will search through the price MinPQ. To do this 
+											   efficiently, I created a counter variable to make sure that is is less than the size of the number of cars in the PQ.
+											   Inside the while loop, was a simple conditional if that the index of the car being looked at in each PQ equals the 
+											   Car Make AND the Car Model. If so, return the car fields of this node. If the car could not  be located, return null.
+					Runtime: O(1) > This operation is bounded by a constant runtime. The individual PQ will take contant time lookup. Since only the minimum price
+									PQ is called, this method will only search through that PQ. With that, the search of the Make and Model will take place at the
+									time the method is called. So during the execution, the runtime for finding that value will not be affected. 
+									This is similar for the lowestMilageMakeAndModel.
+									
+				6. lowestMilageMakeAndModel(): This method takes the input of both the car's make and model. After given these values, I search through the 
+											   list of cars to search for a car which those two fields. This will search through the milage MinPQ. To do this 
+											   efficiently, I created a counter variable to make sure that is is less than the size of the number of cars in the PQ.
+											   Inside the while loop, was a simple conditional if that the index of the car being looked at in each PQ equals the 
+											   Car Make AND the Car Model. If so, return the car fields of this node. If the car could not  be located, return null.
+					Runtime: O(1) > This operation is bounded by a constant runtime. The individual PQ will take contant time lookup. Since only the minimum milage
+									PQ is called, this method will only search through that PQ. With that, the search of the Make and Model will take place at the
+									time the method is called. So during the execution, the runtime for finding that value will not be affected. 
+									
+				7. updateCar(): This method is designed to allow the user to modify any attribute after they have already added a car into the list of cars. The purpose
+								of this method is to provide the user an opportunity to change any value in case they have either mistyped or simply want to change a value.
+								In this method, the user must enter the VIN number of the car they wish to change. Then, there will be displayed a menu of the attributes
+								for which they can choose from. After picking one, a prompt for a new value will be displayed. This will give them a chance to enter a 
+								new value. This method was quite intuitive after walking through the logic on paper. The one difficult part was making sure to appropriately
+								make changes to the Price and Milage PQs if the user wished to change those attributes. 
+					Runtime: O(log(n)) > The height of the tree is log(n). When it comes to updating an attribute/enumerable in the PQ, the time required will simply be 
+										 height of the heap. In this case, the height is log(n). This is true because changing a value in the existing PQ will require 
+										 the time it takes to either add or remove a value from the data structure. In my implementation, the time required to do this is 2*logn.
+										 The reason I took the half of the value is because I am simply updating one PQ value, either the price or milage in the worst case.
+										 In all other cases, updating the VIN, Make, Model, or Color will require constant time because they are not stored in the minPQ, which 
+										 reduces the time for updatingCar to execute. 
+				
+				8. inUse(): This method was a quick test to see if the VIN number is being used for another car. Since the VIN number is an identification number, I 
+							knew that I had to check to see if the current input of the VIN number equals another VIN number in the PQ. I also made sure my program
+							would not crash. By making sure all inputs were valid, I was able to make sure data was maintained properly. For instance, checking if
+							the VIN number was in use. Also, I checked if the length of the string input was 17 and did not contain any i's or o's. 
+					Runtime: O(n) > n refers to the number of nodes in the PQ. The method checks for every element in the PQ to see if there is another that has the
+									value as it. 
+				9. addACar(): This method is used just like the addACar_helper() function. I recently implemented this method to basically freeze the error statements from printing
+							  out when the 'cars.txt' file is loaded into the priority queue. The reason this had to be done is because I have implemented various error checks for 
+							  VIN numbers. Since multiple VIN numbers in the 'cars.txt' file are invalid, these print statements get executed and displayed to the screen. This looks
+							  quite silly at the start of the program. All in all, I created a helper function and the main addACar function to perform the necessary add operations.
+					Runtime: O((2)(n*logn)) (the insert runtime for heaps times two for the two minPQs) (same as addACar_helper()) 
+								  
+	III. Justifications
+		>> For my CarTracker project, I decided to use two minimum priority queues because I knew that the user will want to retreive either the minimum priced car, the car with
+		   the least number of miles, or both. This means that I needed to have a data structure that would store two minimums. Based on what we discussed in lecture, I figured 
+		   that an implemention of two minimum priority queues would be necessary. The benefit of this is that if I am accessing the price priority queue, I dont have to adjust
+		   any values in the milage priority queue or vice versa. Another benefit for my implementation is that due to the modularization of the project, I was able to keep my 
+		   runtimes fast and efficient. As described above, most of my operations are constant, linear, logarithmic, or linearithmic. Thse are all very quick operations. As for
+		   limitations in my approach, one important factor to consider is the amount of memory allocation. For large inputs values, performance for running through all of the 
+		   structure will decline. This is not necessary true in all instances; however, it is important to note that for most sizes of input at this level, this should not be
+		   a significant issue. That is why I did not keep this as a major focal point during implementation. In my implementation, I chose to use Java's ArrayList as the indirection 
+		   portion of this data structure because most of its method's runtimes are constant time and usually perform in that manner. The worst case are O(n) time which isn't all 
+		   that bad. In terms of memory allocation, I need to allocate n spaces for each car entered into the structure. Since I used two priority queues for 'n' number of items, 
+		   the allocation required is 'n'. This approach is appropriate because the runtimes for the priority queue operations are the same as we discussed in lecture. 
+
+		   
+End of Documentation File
