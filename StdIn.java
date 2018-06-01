@@ -7,7 +7,6 @@
  *
  ******************************************************************************/
  
- 
 // StdIn.java file can be found on the CS1501 website. 
 // Source Code provided by the textbook. 
 // For further documentation on the textbook, see line 15 to 22.
@@ -21,8 +20,6 @@
  *
 */
  
- 
-
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;

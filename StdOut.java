@@ -6,7 +6,6 @@
  *  Writes data of various types to standard output.
  *
  ******************************************************************************/
-
  
 // StdOut.java file can be found on the CS1501 website. 
 // Source Code provided by the textbook. 

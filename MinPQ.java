@@ -41,7 +41,6 @@ import java.util.NoSuchElementException;
  *
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
- *
  *  @param <Key> the generic type of key on this priority queue
  */
 public class MinPQ<Key> implements Iterable<Key> {
